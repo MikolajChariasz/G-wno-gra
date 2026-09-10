@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
@@ -13,96 +11,146 @@ public class MovementController : MonoBehaviour
     void Update()
     {
         Vector2 pos = transform.position;
-        Vector2 newPos = pos;
+        Vector2 movementDirection = Vector2.zero;
 
-        if (Input.GetKeyDown("up"))
+        // -----------------------------------------
+        // Get input
+        // -----------------------------------------
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            newPos.y += 1;
+            movementDirection = Vector2.up;
         }
-        else if (Input.GetKeyDown("down"))
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            newPos.y -= 1;
+            movementDirection = Vector2.down;
         }
-        else if (Input.GetKeyDown("right"))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            newPos.x += 1;
-            gameObject.GetComponent<SpriteRenderer>().sprite = playerRight;
+            movementDirection = Vector2.right;
+            GetComponent<SpriteRenderer>().sprite = playerRight;
         }
-        else if (Input.GetKeyDown("left"))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            newPos.x -= 1;
-            gameObject.GetComponent<SpriteRenderer>().sprite = playerLeft;
+            movementDirection = Vector2.left;
+            GetComponent<SpriteRenderer>().sprite = playerLeft;
         }
         else
         {
-            // No movement key was pressed
             return;
         }
 
-        // Direction of the attempted movement
-        Vector2 movementDirection = newPos - pos;
 
-        // -----------------------------------
-        // 1. Check walls
-        // -----------------------------------
+        Vector2 newPos = pos + movementDirection;
 
-        // Point halfway between current and destination cell
-        Vector2 wallCheckPosition = (pos + newPos) / 2f;
 
-        if (Physics2D.OverlapPoint(wallCheckPosition, wallLayer))
-        {
-            return;
-        }
+        // -----------------------------------------
+        // Find U at player's current position
+        // -----------------------------------------
 
-        // -----------------------------------
-        // 2. Check ring at current position
-        // -----------------------------------
-
-        Collider2D currentRingCollider =
+        Collider2D ringCollider =
             Physics2D.OverlapPoint(pos, ringLayer);
 
-        if (currentRingCollider != null)
-        {
-            RingController currentRing =
-                currentRingCollider.GetComponent<RingController>();
-
-            if (currentRing != null)
-            {
-                // If we're inside a ring, we can only leave
-                // through its opening.
-                if (!currentRing.CanExit(movementDirection))
-                {
-                    return;
-                }
-            }
-        }
-
-        // -----------------------------------
-        // 3. Check ring at destination
-        // -----------------------------------
+        RingController currentRing = null;
 
         Collider2D destinationRingCollider =
             Physics2D.OverlapPoint(newPos, ringLayer);
 
+        RingController destinationRing = null;
+
+        if (ringCollider != null)
+        {
+            currentRing =
+                ringCollider.GetComponent<RingController>();
+        }
+
         if (destinationRingCollider != null)
         {
-            RingController destinationRing =
+            destinationRing =
                 destinationRingCollider.GetComponent<RingController>();
+        }
 
-            if (destinationRing != null)
+        // -----------------------------------------
+        // Check wall between player and destination
+        // -----------------------------------------
+
+        Vector2 wallCheckPosition =
+            (pos + newPos) / 2f;
+
+        bool wallExists =
+            Physics2D.OverlapPoint(
+                wallCheckPosition,
+                wallLayer
+            );
+
+
+        // -----------------------------------------
+        // WALL + PLAYER INSIDE U
+        // -----------------------------------------
+
+
+
+        // -----------------------------------------
+        // WALL + PLAYER NOT INSIDE U
+        // -----------------------------------------
+
+        if (wallExists)
+        {
+            return;
+        }
+
+
+        // -----------------------------------------
+        // Check if leaving current U
+        // -----------------------------------------
+
+        if (currentRing != null)
+        {
+            if (!currentRing.CanExit(movementDirection))
             {
-                // We can only enter the ring through its opening.
-                if (!destinationRing.CanEnter(movementDirection))
+                if(destinationRing == null)
+                {
+                    currentRing.MoveRing(movementDirection);
+                }
+                else
                 {
                     return;
                 }
+                
             }
         }
 
-        // -----------------------------------
-        // 4. Everything is allowed
-        // -----------------------------------
+
+        // -----------------------------------------
+        // Check if entering another U
+        // -----------------------------------------
+
+        
+        
+
+
+        if (destinationRing != null)
+        {
+            if (!destinationRing.CanEnter(movementDirection))
+            {
+                return;
+            }
+        }
+
+
+        // -----------------------------------------
+        // Move player
+        // -----------------------------------------
 
         transform.position = newPos;
+        if (currentRing != null && destinationRing != currentRing)
+        {
+            currentRing.PlayerExited();
+        }
+
+        if (destinationRing != null && destinationRing != currentRing)
+        {
+            destinationRing.PlayerEntered();
+        }
     }
 }
