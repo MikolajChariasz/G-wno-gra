@@ -19,6 +19,8 @@ public class RingController : MonoBehaviour
     [HideInInspector]
     public LayerMask wallLayer;
 
+    public bool isRedRing = false; // Check this box in the Inspector for your Red Ring prefabs/objects
+
     private void Awake()
     {
         sameRingLayer = 1 << gameObject.layer;
