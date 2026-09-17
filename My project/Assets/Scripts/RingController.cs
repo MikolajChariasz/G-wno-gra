@@ -10,88 +10,88 @@ public class RingController : MonoBehaviour
         Right
     }
 
+    [HideInInspector]
     public OpeningDirection openingDirection;
 
-    public bool IsPlayerInside;
+    [HideInInspector]
+    public LayerMask sameRingLayer;
 
+    [HideInInspector]
+    public LayerMask wallLayer;
 
-    // -----------------------------------------
-    // Can enter through opening?
-    // -----------------------------------------
+    private void Awake()
+    {
+        sameRingLayer = 1 << gameObject.layer;
+        wallLayer = LayerMask.GetMask("Walls");
+    }
+
+    private void Update()
+    {
+        UpdateOpeningDirection();
+    }
+
+    private void UpdateOpeningDirection()
+    {
+        // Get the Z rotation normalized between 0 and 360
+        float zRotation = transform.eulerAngles.z % 360f;
+        if (zRotation < 0) zRotation += 360f;
+
+        // Round to nearest 90-degree increment to prevent precision issues
+        int roundedZ = Mathf.RoundToInt(zRotation / 90f) * 90 % 360;
+
+        switch (roundedZ)
+        {
+            case 0:
+                openingDirection = OpeningDirection.Up;
+                break;
+            case 90:
+                openingDirection = OpeningDirection.Left;
+                break;
+            case 180:
+                openingDirection = OpeningDirection.Down;
+                break;
+            case 270:
+                openingDirection = OpeningDirection.Right;
+                break;
+        }
+    }
 
     public bool CanEnter(Vector2 movementDirection)
     {
-        Vector2 openingVector = GetOpeningVector();
-
-        return movementDirection == -openingVector;
+        return movementDirection == -GetOpeningVector();
     }
-
-
-    // -----------------------------------------
-    // Can leave through opening?
-    // -----------------------------------------
 
     public bool CanExit(Vector2 movementDirection)
     {
-        Vector2 openingVector = GetOpeningVector();
-
-        return movementDirection == openingVector;
+        return movementDirection == GetOpeningVector();
     }
 
-
-    // -----------------------------------------
-    // Player entered
-    // -----------------------------------------
-
-    public void PlayerEntered()
-    {
-        IsPlayerInside = true;
-    }
-
-
-    // -----------------------------------------
-    // Player exited
-    // -----------------------------------------
-
-    public void PlayerExited()
-    {
-        IsPlayerInside = false;
-    }
-
-
-    // -----------------------------------------
-    // Move the U
-    // -----------------------------------------
-
-    public void MoveRing(Vector2 direction)
-    {
-        
-        transform.position += (Vector3)direction;
-
-    }
-
-
-    // -----------------------------------------
-    // Get opening direction
-    // -----------------------------------------
-
-    private Vector2 GetOpeningVector()
+    public Vector2 GetOpeningVector()
     {
         switch (openingDirection)
         {
-            case OpeningDirection.Up:
-                return Vector2.up;
-
-            case OpeningDirection.Down:
-                return Vector2.down;
-
-            case OpeningDirection.Left:
-                return Vector2.left;
-
-            case OpeningDirection.Right:
-                return Vector2.right;
+            case OpeningDirection.Up: return Vector2.up;
+            case OpeningDirection.Down: return Vector2.down;
+            case OpeningDirection.Left: return Vector2.left;
+            case OpeningDirection.Right: return Vector2.right;
         }
-
         return Vector2.zero;
+    }
+
+    public bool CanMoveTo(Vector2 targetPos)
+    {
+        if (Physics2D.OverlapPoint(targetPos, wallLayer) != null)
+            return false;
+
+        Collider2D col = Physics2D.OverlapPoint(targetPos, sameRingLayer);
+        if (col != null && col.gameObject != gameObject)
+            return false;
+
+        return true;
+    }
+
+    public void MoveRing(Vector2 direction)
+    {
+        transform.position += (Vector3)direction;
     }
 }
