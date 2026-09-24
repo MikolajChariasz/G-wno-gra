@@ -5,19 +5,32 @@ public class MovementController : MonoBehaviour
 {
     public Sprite playerLeft;
     public Sprite playerRight;
-
+    
     [HideInInspector]
     public LayerMask wallLayer;
     [HideInInspector]
     public LayerMask smallRingLayer;
     [HideInInspector]
     public LayerMask bigRingLayer;
-
+    private Vector2 doorPosition;
     private void Awake()
     {
+        GameObject door = GameObject.Find("Door");
+
+        if (door != null)
+        {
+            doorPosition = door.transform.position;
+            Debug.Log("Door: " + doorPosition);
+        }
+        else
+        {
+            Debug.LogError("Nie znaleziono Door!");
+        }
+
         smallRingLayer = LayerMask.GetMask("SmallRings");
         bigRingLayer = LayerMask.GetMask("BigRings");
         wallLayer = LayerMask.GetMask("Walls");
+        
     }
     void Update()
     {
@@ -39,6 +52,7 @@ public class MovementController : MonoBehaviour
 
         Vector2 pos = transform.position;
         Vector2 targetPos = pos + movementDirection;
+        
 
         // 1. Get rings at current and target positions
         RingController currentSmall = GetRingAt(pos, smallRingLayer);
@@ -111,6 +125,10 @@ public class MovementController : MonoBehaviour
             {
                 return;
             }
+        }
+        if (Vector2.Distance(targetPos,doorPosition) < 0.3f)
+        {
+            Debug.Log("Jestem przy drzwiach!");
         }
 
         // 6. Execute Movement

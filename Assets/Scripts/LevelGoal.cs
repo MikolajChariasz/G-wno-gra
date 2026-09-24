@@ -4,13 +4,13 @@ public class LevelGoal : MonoBehaviour
 {
     [Header("Door Target")]
     public GameObject doorObject;
-
     [Header("Ring Layers")]
     public LayerMask smallRingLayer;
     public LayerMask bigRingLayer;
+    public static GameObject doorpos;
 
     private bool doorUnlocked = false;
-
+    
     void Update()
     {
         // Stop checking once the door is already opened
@@ -56,4 +56,5 @@ public class LevelGoal : MonoBehaviour
             doorObject.SetActive(false); // Hides the door wall completely
         }
     }
+    
 }
