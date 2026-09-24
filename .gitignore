@@ -9,5 +9,5 @@
 *.csproj
 *.unityproj
 *.sln
-/ProjectSettings/
 /UserSettings/
+/ProjectSettings/
