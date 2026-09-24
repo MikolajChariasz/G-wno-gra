@@ -81,12 +81,12 @@ public class MovementController : MonoBehaviour
         }
 
         // 3. Evaluate Entering New Rings
-        if (currentSmall == null && targetSmall != null && !targetSmall.CanEnter(movementDirection))
+        if (targetSmall != null && !targetSmall.CanEnter(movementDirection))
         {
             return;
         }
 
-        if (currentBig == null && targetBig != null && !targetBig.CanEnter(movementDirection))
+        if (targetBig != null && !targetBig.CanEnter(movementDirection))
         {
             return;
         }
