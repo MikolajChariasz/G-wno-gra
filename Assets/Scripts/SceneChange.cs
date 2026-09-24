@@ -30,6 +30,22 @@ public class SceneChange : MonoBehaviour
         wybranaScena = "Level3";
         SceneManager.LoadScene("LoadingScreen");
     }
+    public void Tutorial1()
+    {
+        wybranaScena = "Tutorial1";
+        SceneManager.LoadScene("LoadingScreen");
+    }
+
+    public void Tutorial2()
+    {
+        wybranaScena = "Tutorial2";
+        SceneManager.LoadScene("LoadingScreen");
+    }
+    public void Tutorial3()
+    {
+        wybranaScena = "Tutorial3";
+        SceneManager.LoadScene("LoadingScreen");
+    }
 
     public void Menu()
     {
