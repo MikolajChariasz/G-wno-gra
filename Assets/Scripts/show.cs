@@ -9,7 +9,7 @@ public class show : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.FindGameObjectWithTag("nextlevel").SetActive(false);
+        nextLevel.SetActive(false);
     }
 
     // Update is called once per frame
