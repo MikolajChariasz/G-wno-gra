@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,8 +6,9 @@ public class MovementController : MonoBehaviour
 {
     public Sprite playerLeft;
     public Sprite playerRight;
-    public Vector2 winPosition;
-    public bool victory;
+
+    public static bool czyWygrana = false;
+
     
     [HideInInspector]
     public LayerMask wallLayer;
@@ -33,6 +35,7 @@ public class MovementController : MonoBehaviour
         bigRingLayer = LayerMask.GetMask("BigRings");
         wallLayer = LayerMask.GetMask("Walls");
         
+
     }
     void Update()
     {
@@ -138,6 +141,13 @@ public class MovementController : MonoBehaviour
         foreach (RingController ring in ringsToMove)
         {
             ring.MoveRing(movementDirection);
+        }
+        
+        if (wallCheckPosition == doorPosition)
+        {
+
+           
+            czyWygrana = true;
         }
     }
 
