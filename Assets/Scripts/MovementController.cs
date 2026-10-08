@@ -6,6 +6,7 @@ public class MovementController : MonoBehaviour
 {
     public Sprite playerLeft;
     public Sprite playerRight;
+<<<<<<< Updated upstream
     public Vector2 winPosition;
     public bool victory;
 =======
