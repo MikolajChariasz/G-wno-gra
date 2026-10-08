@@ -100,7 +100,7 @@ public class MovementController : MonoBehaviour
             return;
         }
 
-        if (targetSmall != null && currentBig != null)
+        if (targetSmall != null && currentBig != null && !targetSmall.CanEnter(movementDirection))
         {
             return;
         }

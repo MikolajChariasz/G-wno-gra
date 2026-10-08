@@ -15,6 +15,10 @@ public class Reset : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (Input.GetKeyDown(KeyCode.R)) Reset.Restart();
+    }
+    public static void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
