@@ -5,6 +5,8 @@ public class MovementController : MonoBehaviour
 {
     public Sprite playerLeft;
     public Sprite playerRight;
+    public Vector2 winPosition;
+    public bool victory;
     
     [HideInInspector]
     public LayerMask wallLayer;
