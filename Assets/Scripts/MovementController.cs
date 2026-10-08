@@ -6,7 +6,8 @@ public class MovementController : MonoBehaviour
 {
     public Sprite playerLeft;
     public Sprite playerRight;
-
+    public AudioSource win;
+    
     public static bool czyWygrana = false;
 
     
@@ -146,7 +147,7 @@ public class MovementController : MonoBehaviour
         if (wallCheckPosition == doorPosition)
         {
 
-           
+            win.Play();
             czyWygrana = true;
         }
     }

@@ -8,7 +8,7 @@ public class LevelGoal : MonoBehaviour
     public LayerMask smallRingLayer;
     public LayerMask bigRingLayer;
     public static GameObject doorpos;
-
+    public AudioSource open;
     private bool doorUnlocked = false;
     
     void Update()
@@ -53,7 +53,9 @@ public class LevelGoal : MonoBehaviour
 
         if (doorObject != null)
         {
+            open.Play();
             doorObject.SetActive(false); // Hides the door wall completely
+            
         }
     }
     

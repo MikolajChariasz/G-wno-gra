@@ -5,6 +5,7 @@ using UnityEngine;
 public class show : MonoBehaviour
 {
     public GameObject nextLevel;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class show : MonoBehaviour
         {
             Debug.Log("wygrana");
             nextLevel.SetActive(true);
+            
         }
     }
 }
