@@ -24,14 +24,6 @@ public class ButtonSpriteController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        void OnMouseOver()
-        {
-            transform.GetComponent<SpriteRenderer>().sprite = highlightSprite;
-        }
 
-        void OnMouseExit()
-        {
-            transform.GetComponent<SpriteRenderer>().sprite = sprite;
-        }
     }
 }
