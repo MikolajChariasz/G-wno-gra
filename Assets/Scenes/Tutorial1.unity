@@ -873,7 +873,7 @@ PrefabInstance:
       objectReference: {fileID: 281924288}
     - target: {fileID: 472495773489499027, guid: e3dca90bf0a195c4c96a985a531f6b7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Menu
+      value: Levele
       objectReference: {fileID: 0}
     - target: {fileID: 808740722893182688, guid: e3dca90bf0a195c4c96a985a531f6b7a, type: 3}
       propertyPath: m_Name
