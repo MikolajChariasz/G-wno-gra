@@ -10,9 +10,11 @@ public class SceneChange : MonoBehaviour
     public static string wybranaScena;
     public void Levele()
     {
-        SceneManager.LoadScene("Levele");
+        SceneManager.LoadScene("LevelSelection");
         
     }
+
+
     public void Level1()
     {
         wybranaScena = "Level1";
