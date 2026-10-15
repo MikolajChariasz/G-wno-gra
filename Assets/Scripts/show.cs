@@ -17,7 +17,7 @@ public class show : MonoBehaviour
     {
         if(MovementController.czyWygrana == true)
         {
-            Debug.Log("wygrana");
+            
             nextLevel.SetActive(true);
             
         }

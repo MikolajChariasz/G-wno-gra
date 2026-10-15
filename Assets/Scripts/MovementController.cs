@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovementController : MonoBehaviour
 {
@@ -151,8 +152,12 @@ public class MovementController : MonoBehaviour
         if (wallCheckPosition == doorPosition)
         {
 
+            String scena = SceneManager.GetActiveScene().name;
+            PlayerPrefs.SetString("Level",scena );
             win.Play();
             czyWygrana = true;
+            Debug.Log(PlayerPrefs.GetString("Level"));
+            PlayerPrefs.Save();
         }
     }
 
