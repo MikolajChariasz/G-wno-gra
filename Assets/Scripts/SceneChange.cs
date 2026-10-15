@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SceneChange : MonoBehaviour
 {
+    
     [SerializeField] private string newGameLevel = "Level1";
     public static string wybranaScena;
     public void Levele()
@@ -20,38 +21,62 @@ public class SceneChange : MonoBehaviour
         wybranaScena = "Level1";
         SceneManager.LoadScene("LoadingScreen");
         
+        
     }
     public void Level2()
     {
         wybranaScena = "Level2";
         SceneManager.LoadScene("LoadingScreen");
-
+        
     }
     public void Level3()
     {
         wybranaScena = "Level3";
         SceneManager.LoadScene("LoadingScreen");
+        
+    }
+    public void Level4()
+    {
+        wybranaScena = "Level4";
+        SceneManager.LoadScene("LoadingScreen");
+
+    }
+    public void Level5()
+    {
+        wybranaScena = "Level5";
+        SceneManager.LoadScene("LoadingScreen");
+
+    }
+    public void Level6()
+    {
+        wybranaScena = "Level6";
+        SceneManager.LoadScene("LoadingScreen");
+
     }
     public void Tutorial1()
     {
         wybranaScena = "Tutorial1";
         SceneManager.LoadScene("LoadingScreen");
+        
     }
 
     public void Tutorial2()
     {
         wybranaScena = "Tutorial2";
         SceneManager.LoadScene("LoadingScreen");
+        
     }
     public void Tutorial3()
     {
         wybranaScena = "Tutorial3";
         SceneManager.LoadScene("LoadingScreen");
+        
     }
 
     public void Menu()
     {
         SceneManager.LoadScene("Menu");
+        
     }
 
 }

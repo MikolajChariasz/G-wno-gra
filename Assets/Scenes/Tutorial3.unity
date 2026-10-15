@@ -1058,6 +1058,10 @@ PrefabInstance:
     - target: {fileID: 176370869632025207, guid: 42306d758cc357f46b8839f499836fba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 366992430}
+    - target: {fileID: 176370869632025207, guid: 42306d758cc357f46b8839f499836fba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 1705301495192815705, guid: 42306d758cc357f46b8839f499836fba, type: 3}
       propertyPath: m_Name
@@ -1151,6 +1155,11 @@ PrefabInstance:
 --- !u!224 &1812764921 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6511439578225824217, guid: 42306d758cc357f46b8839f499836fba, type: 3}
+  m_PrefabInstance: {fileID: 1812764920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1812764922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1705301495192815705, guid: 42306d758cc357f46b8839f499836fba, type: 3}
   m_PrefabInstance: {fileID: 1812764920}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1973563032
@@ -1275,6 +1284,7 @@ GameObject:
   - component: {fileID: 2107351532}
   - component: {fileID: 2107351531}
   - component: {fileID: 2107351530}
+  - component: {fileID: 2107351534}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1367,6 +1377,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2107351534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107351529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94995654bd8dad84c8db17c8c89e9ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevel: {fileID: 1812764922}
 --- !u!1001 &852362015181379457
 PrefabInstance:
   m_ObjectHideFlags: 0

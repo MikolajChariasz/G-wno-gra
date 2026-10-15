@@ -38,6 +38,10 @@ public class MovementController : MonoBehaviour
         
 
     }
+    private void Start()
+    {
+        czyWygrana = false;
+    }
     void Update()
     {
         Vector2 movementDirection = Vector2.zero;
