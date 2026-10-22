@@ -13,7 +13,6 @@ public class VolumeToggleController : MonoBehaviour
 
     void Start()
     {
-        // Inicjalizacja stanu na podstawie globalnego stanu AudioListener
         bool isMuted = AudioListener.pause;
         if (soundToggle != null)
         {
@@ -30,7 +29,6 @@ public class VolumeToggleController : MonoBehaviour
 
     public void OnToggleValueChanged(bool isOn)
     {
-        // isOn = true -> dŸwiêk w³¹czony, isOn = false -> wyciszony
         AudioListener.pause = !isOn;
         UpdateVisuals(isOn);
     }
