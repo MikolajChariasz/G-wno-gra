@@ -126,6 +126,11 @@ public class MovementController : MonoBehaviour
             return;
         }
 
+        if (czyWygrana)
+        {
+            return;
+        }
+
         // 4. Wall Check for Player
         Vector2 wallCheckPosition = (pos + targetPos) / 2f;
         if (Physics2D.OverlapPoint(wallCheckPosition, wallLayer) != null)
