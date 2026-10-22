@@ -4,70 +4,79 @@ using UnityEngine.SceneManagement;
 
 public class IntroController : MonoBehaviour
 {
-    [Header("Video Player")]
-    [SerializeField] private VideoPlayer videoPlayer;
-
-    [Header("Filmy")]
-    [SerializeField] private VideoClip introStartClip; // Film 1 (Pojawianie siê + napis)
-    [SerializeField] private VideoClip introEndClip;   // Film 2 (Znikanie)
+    [Header("Video Players")]
+    [SerializeField] private VideoPlayer startVideoPlayer; // Film 1
+    [SerializeField] private VideoPlayer endVideoPlayer;   // Film 2
 
     [Header("Ustawienia czasu")]
-    [SerializeField] private float skipDelay = 3.0f; // Czas w sekundach, po którym gracz mo¿e klikn¹æ
+    [SerializeField] private float skipDelay = 3.0f; // Czas w sekundach przed mo¿liwoœci¹ klikniêcia
 
     [Header("Nastêpna Scena")]
-    [SerializeField] private string nextSceneName = "SampleScene"; // Nazwa docelowej sceny gry
+    [SerializeField] private string nextSceneName = "SampleScene";
 
-    private bool isPlayingEndClip = false;
+    private bool isPlayingEnd = false;
     private float timer = 0f;
 
     void Start()
     {
-        if (videoPlayer == null)
+        if (startVideoPlayer != null)
         {
-            videoPlayer = GetComponent<VideoPlayer>();
+            startVideoPlayer.gameObject.SetActive(true);
+            startVideoPlayer.Play();
+            startVideoPlayer.loopPointReached += OnStartVideoFinished;
         }
 
-        // Konfiguracja i start pierwszego filmu
-        videoPlayer.clip = introStartClip;
-        videoPlayer.isLooping = false;
-        videoPlayer.Play();
-
-        // Nas³uchiwanie koñca odtwarzania dowolnego filmu
-        videoPlayer.loopPointReached += OnVideoFinished;
+        if (endVideoPlayer != null)
+        {
+            endVideoPlayer.gameObject.SetActive(false);
+            endVideoPlayer.loopPointReached += OnEndVideoFinished;
+        }
     }
 
     void Update()
     {
         timer += Time.deltaTime;
 
-        // Sprawdzanie czy minê³y 3 sekundy i czy gracz klikn¹³ myszk¹, a drugi film jeszcze siê nie zacz¹³
-        if (timer >= skipDelay && !isPlayingEndClip)
+        if (timer >= skipDelay && !isPlayingEnd)
         {
-            if (Input.GetMouseButtonDown(0)) // Lewy przycisk myszy
+            if (Input.GetMouseButtonDown(0))
             {
-                PlayEndClip();
+                SwitchToEndVideo();
             }
         }
     }
 
-    void PlayEndClip()
+    void SwitchToEndVideo()
     {
-        isPlayingEndClip = true;
-        videoPlayer.clip = introEndClip;
-        videoPlayer.Play();
+        if (isPlayingEnd) return;
+        isPlayingEnd = true;
+
+        // Natychmiast ukrywamy pierwszy odtwarzacz – w tym momencie pod spodem
+        // idealnie widaæ nasz statyczny obraz z napisem, co maskuje wszelkie opóŸnienia!
+        if (startVideoPlayer != null)
+        {
+            startVideoPlayer.Stop();
+            startVideoPlayer.gameObject.SetActive(false);
+        }
+
+        // Uruchamiamy drugi film
+        if (endVideoPlayer != null)
+        {
+            endVideoPlayer.gameObject.SetActive(true);
+            endVideoPlayer.Play();
+        }
     }
 
-    void OnVideoFinished(VideoPlayer vp)
+    void OnStartVideoFinished(VideoPlayer vp)
     {
-        if (!isPlayingEndClip)
+        if (!isPlayingEnd)
         {
-            // Jeœli pierwszy film dobieg³ koñca naturalnie, a gracz nie klikn¹³, odtwarzamy film koñcowy
-            PlayEndClip();
+            SwitchToEndVideo();
         }
-        else
-        {
-            // Jeœli film koñcowy równie¿ siê skoñczy³, przechodzimy do w³aœciwej gry
-            SceneManager.LoadScene(nextSceneName);
-        }
+    }
+
+    void OnEndVideoFinished(VideoPlayer vp)
+    {
+        SceneManager.LoadScene(nextSceneName);
     }
 }
