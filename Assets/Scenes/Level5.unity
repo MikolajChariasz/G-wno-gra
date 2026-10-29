@@ -316,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbd6e9dc73985e42b1852a4396e7e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameLevel: Level1
 --- !u!4 &297242636
 Transform:
   m_ObjectHideFlags: 0
@@ -1832,7 +1831,7 @@ PrefabInstance:
       objectReference: {fileID: 297242635}
     - target: {fileID: 176370869632025207, guid: 42306d758cc357f46b8839f499836fba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Levele
+      value: Level6
       objectReference: {fileID: 0}
     - target: {fileID: 1705301495192815705, guid: 42306d758cc357f46b8839f499836fba, type: 3}
       propertyPath: m_Name

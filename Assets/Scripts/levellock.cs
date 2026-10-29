@@ -30,7 +30,7 @@ public class levellock : MonoBehaviour
 
         
         string level = PlayerPrefs.GetString("Level");
-
+        
         if (!PlayerPrefs.HasKey("Level")) Odkryj(jeden);
         if (level == "Tutorial1")
         {

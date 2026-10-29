@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class SceneChange : MonoBehaviour
 {
     
-    [SerializeField] private string newGameLevel = "Level1";
     public static string wybranaScena;
     public void Levele()
     {

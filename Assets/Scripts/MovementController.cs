@@ -121,7 +121,7 @@ public class MovementController : MonoBehaviour
             return;
         }
 
-        if (currentBig != null && targetSmall != null)
+        if (currentBig != null && targetSmall != null && !currentBig.CanExit(movementDirection))
         {
             return;
         }
@@ -163,7 +163,21 @@ public class MovementController : MonoBehaviour
         {
 
             String scena = SceneManager.GetActiveScene().name;
-            PlayerPrefs.SetString("Level",scena );
+            
+            int scena_index = SceneManager.GetActiveScene().buildIndex;
+
+            if (!PlayerPrefs.HasKey("index"))
+            {
+                // Pierwsze uruchomienie gry - zapisujemy startowy poziom i indeks
+                PlayerPrefs.SetInt("index", scena_index);
+                PlayerPrefs.SetString("Level", scena);
+            }
+            else if (PlayerPrefs.GetInt("index") <= scena_index)
+            {
+                // Aktualizujemy rekord, jeœli dotarliœmy do nowego lub wy¿szego poziomu
+                PlayerPrefs.SetInt("index", scena_index);
+                PlayerPrefs.SetString("Level", scena);
+            }
             win.Play();
             czyWygrana = true;
             Debug.Log(PlayerPrefs.GetString("Level"));
